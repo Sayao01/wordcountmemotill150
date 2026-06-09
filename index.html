@@ -12,9 +12,7 @@
   <style>
     * { box-sizing: border-box; }
 
-    html {
-      touch-action: manipulation;
-    }
+    html { touch-action: manipulation; }
 
     body {
       margin: 0;
@@ -85,9 +83,7 @@
       font-size: 15px;
     }
 
-    body.night .subtitle {
-      color: #eef3ff;
-    }
+    body.night .subtitle { color: #eef3ff; }
 
     .notice {
       text-align: center;
@@ -155,15 +151,11 @@
       font-weight: bold;
     }
 
-    body.night .topline {
-      color: #d7d9ff;
-    }
+    body.night .topline { color: #d7d9ff; }
 
     .counter { color: #6d5fff; }
 
-    body.night .counter {
-      color: #c7fff3;
-    }
+    body.night .counter { color: #c7fff3; }
 
     .counter.over {
       color: #ff2f7d;
@@ -184,6 +176,8 @@
       font-size: 16px;
       line-height: 1.7;
       box-shadow: inset 0 0 8px rgba(160,180,255,.35);
+      resize: vertical;
+      font-family: 'DotGothic16', sans-serif;
     }
 
     body.night .editor {
@@ -194,12 +188,6 @@
     .editor:focus {
       border-color: #ff9ee7;
       box-shadow: inset 0 0 8px #ffd8f5, 0 0 8px #fff;
-    }
-
-    .over-text {
-      color: #ff005d;
-      background: #fff4a8;
-      text-decoration: underline;
     }
 
     .buttons {
@@ -222,9 +210,7 @@
       font-size: 16px;
     }
 
-    button:active {
-      transform: translateY(1px);
-    }
+    button:active { transform: translateY(1px); }
 
     .clear {
       background: linear-gradient(180deg, #fff, #ffd7f2);
@@ -268,9 +254,7 @@
       font-size: 13px;
     }
 
-    body.night footer {
-      color: #eef3ff;
-    }
+    body.night footer { color: #eef3ff; }
 
     .star, .heart, .rain, .bunny {
       position: fixed;
@@ -284,14 +268,8 @@
     }
 
     @keyframes shooting {
-      from {
-        transform: translate(0, 0) scale(1);
-        opacity: 1;
-      }
-      to {
-        transform: translate(-520px, 520px) scale(.5);
-        opacity: 0;
-      }
+      from { transform: translate(0, 0) scale(1); opacity: 1; }
+      to { transform: translate(-520px, 520px) scale(.5); opacity: 0; }
     }
 
     .heart {
@@ -307,14 +285,8 @@
     }
 
     @keyframes falling {
-      from {
-        transform: translateY(-20px);
-        opacity: 1;
-      }
-      to {
-        transform: translateY(100vh);
-        opacity: 0;
-      }
+      from { transform: translateY(-20px); opacity: 1; }
+      to { transform: translateY(100vh); opacity: 0; }
     }
 
     .bunny {
@@ -382,22 +354,6 @@
     const blocks = document.getElementById("blocks");
     let blockCount = 0;
 
-    let lastTouchEnd = 0;
-    document.addEventListener("touchend", function(event) {
-      const now = Date.now();
-      if (now - lastTouchEnd <= 300) {
-        event.preventDefault();
-      }
-      lastTouchEnd = now;
-    }, { passive: false });
-
-    function escapeHtml(str) {
-      return str
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;");
-    }
-
     function addBlock(text = "") {
       blockCount++;
 
@@ -417,10 +373,11 @@
       topline.appendChild(title);
       topline.appendChild(counter);
 
-      const editor = document.createElement("div");
+      const editor = document.createElement("textarea");
       editor.className = "editor";
-      editor.contentEditable = "true";
-      editor.innerText = text;
+      editor.value = text;
+      editor.rows = 5;
+      editor.spellcheck = false;
 
       const buttons = document.createElement("div");
       buttons.className = "buttons";
@@ -444,91 +401,39 @@
       block.appendChild(buttons);
       blocks.appendChild(block);
 
-      updateEditor(editor, counter);
+      updateCounter(editor, counter);
 
       editor.addEventListener("input", () => {
-        updateEditor(editor, counter);
+        updateCounter(editor, counter);
       });
 
       copyBtn.addEventListener("click", async () => {
-        const plainText = editor.innerText.replace(/\n$/, "");
+        const plainText = editor.value.replace(/\n$/, "");
         await navigator.clipboard.writeText(plainText);
         copied.textContent = "コピーしました♡";
         setTimeout(() => copied.textContent = "", 1200);
       });
 
       clearBtn.addEventListener("click", () => {
-        editor.innerText = "";
-        updateEditor(editor, counter);
+        editor.value = "";
+        updateCounter(editor, counter);
+        editor.focus();
       });
     }
 
-    function updateEditor(editor, counter) {
-      const text = editor.innerText.replace(/\n$/, "");
+    function updateCounter(editor, counter) {
+      const text = editor.value.replace(/\n$/, "");
       const count = [...text].length;
 
       counter.textContent = `${count} / ${LIMIT}文字`;
       counter.classList.toggle("over", count > LIMIT);
-
-      const cursorOffset = getCursorOffset(editor);
-
-      const normal = [...text].slice(0, LIMIT).join("");
-      const over = [...text].slice(LIMIT).join("");
-
-      editor.innerHTML =
-        escapeHtml(normal) +
-        (over ? `<span class="over-text">${escapeHtml(over)}</span>` : "");
-
-      setCursorOffset(editor, cursorOffset);
-    }
-
-    function getCursorOffset(element) {
-      const selection = window.getSelection();
-      if (!selection.rangeCount) return 0;
-
-      const range = selection.getRangeAt(0);
-      const preRange = range.cloneRange();
-      preRange.selectNodeContents(element);
-      preRange.setEnd(range.endContainer, range.endOffset);
-
-      return [...preRange.toString()].length;
-    }
-
-    function setCursorOffset(element, offset) {
-      const selection = window.getSelection();
-      const range = document.createRange();
-      let current = 0;
-
-      function walk(node) {
-        if (node.nodeType === Node.TEXT_NODE) {
-          const length = [...node.textContent].length;
-
-          if (current + length >= offset) {
-            range.setStart(node, Math.min(offset - current, node.textContent.length));
-            range.collapse(true);
-            selection.removeAllRanges();
-            selection.addRange(range);
-            return true;
-          }
-
-          current += length;
-        } else {
-          for (let child of node.childNodes) {
-            if (walk(child)) return true;
-          }
-        }
-
-        return false;
-      }
-
-      walk(element);
     }
 
     async function saveAllBlocks() {
       const editors = document.querySelectorAll(".editor");
 
       const texts = [...editors]
-        .map(editor => editor.innerText.replace(/\n$/, "").trim())
+        .map(editor => editor.value.replace(/\n$/, "").trim())
         .filter(text => text.length > 0);
 
       if (texts.length === 0) {
@@ -551,9 +456,7 @@
       star.style.left = window.innerWidth + "px";
       document.body.appendChild(star);
 
-      setTimeout(() => {
-        star.remove();
-      }, 1200);
+      setTimeout(() => star.remove(), 1200);
     }
 
     function fallHearts() {
@@ -566,9 +469,7 @@
         heart.style.animationDelay = Math.random() * 0.8 + "s";
         document.body.appendChild(heart);
 
-        setTimeout(() => {
-          heart.remove();
-        }, 2800);
+        setTimeout(() => heart.remove(), 2800);
       }
     }
 
@@ -582,9 +483,7 @@
         rain.style.animationDelay = Math.random() * 0.8 + "s";
         document.body.appendChild(rain);
 
-        setTimeout(() => {
-          rain.remove();
-        }, 2400);
+        setTimeout(() => rain.remove(), 2400);
       }
     }
 
@@ -598,9 +497,7 @@
       bunny.textContent = "🐰";
       document.body.appendChild(bunny);
 
-      setTimeout(() => {
-        bunny.remove();
-      }, 5000);
+      setTimeout(() => bunny.remove(), 5000);
     }
 
     addBlock();
