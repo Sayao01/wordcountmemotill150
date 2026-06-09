@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>150文字メモ</title>
+  <title>140文字メモ</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,6 +22,15 @@
         linear-gradient(180deg, #dff8ff 0%, #e7e7ff 48%, #ffe3fb 100%);
       background-size: 22px 22px, 100% 100%;
       min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body.night {
+      color: #eef3ff;
+      background:
+        radial-gradient(circle at 20% 20%, #fff 0 2px, transparent 3px),
+        linear-gradient(180deg, #10132d 0%, #29205c 55%, #6d3d7d 100%);
+      background-size: 22px 22px, 100% 100%;
     }
 
     .page {
@@ -34,6 +43,11 @@
       box-shadow: 0 0 20px #fff, 0 0 35px #b9d7ff;
     }
 
+    body.night .page {
+      background: rgba(20, 22, 60, .55);
+      box-shadow: 0 0 20px #fff, 0 0 35px #9b8cff;
+    }
+
     header {
       text-align: center;
       padding: 18px 10px;
@@ -44,6 +58,10 @@
       margin-bottom: 16px;
     }
 
+    body.night header {
+      background: linear-gradient(180deg, #343770, #26274f 45%, #4b2d73);
+    }
+
     h1 {
       margin: 0;
       font-size: 34px;
@@ -52,10 +70,19 @@
       letter-spacing: 2px;
     }
 
+    body.night h1 {
+      color: #cfd1ff;
+      text-shadow: 0 0 8px #fff, 0 0 14px #b7a8ff;
+    }
+
     .subtitle {
       margin-top: 8px;
       color: #6b6bb5;
       font-size: 15px;
+    }
+
+    body.night .subtitle {
+      color: #eef3ff;
     }
 
     .notice {
@@ -77,11 +104,12 @@
       margin-bottom: 18px;
     }
 
-    .menu span {
+    .menu button {
+      width: auto;
       padding: 6px 12px;
       border-radius: 999px;
-      background: linear-gradient(180deg, #fff, #cce8ff);
-      border: 1px solid #fff;
+      background: linear-gradient(180deg, #ffffff, #cce8ff);
+      border: 1px solid #ffffff;
       box-shadow: 0 3px 8px rgba(90,100,180,.22);
       color: #5d65c9;
     }
@@ -103,6 +131,11 @@
       background: linear-gradient(180deg, rgba(255,255,255,.9), rgba(226,255,236,.78));
     }
 
+    body.night .block {
+      background: linear-gradient(180deg, rgba(43,45,96,.9), rgba(30,34,78,.78));
+      color: #eef3ff;
+    }
+
     .topline {
       display: flex;
       justify-content: space-between;
@@ -112,7 +145,15 @@
       font-weight: bold;
     }
 
+    body.night .topline {
+      color: #d7d9ff;
+    }
+
     .counter { color: #6d5fff; }
+
+    body.night .counter {
+      color: #c7fff3;
+    }
 
     .counter.over {
       color: #ff2f7d;
@@ -133,6 +174,11 @@
       font-size: 16px;
       line-height: 1.7;
       box-shadow: inset 0 0 8px rgba(160,180,255,.35);
+    }
+
+    body.night .editor {
+      background: rgba(255,255,255,.9);
+      color: #20264f;
     }
 
     .editor:focus {
@@ -212,11 +258,78 @@
       font-size: 13px;
     }
 
+    body.night footer {
+      color: #eef3ff;
+    }
+
+    .star, .heart, .rain, .bunny {
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    .star {
+      font-size: 24px;
+      animation: shooting 1.2s linear forwards;
+    }
+
+    @keyframes shooting {
+      from {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+      }
+      to {
+        transform: translate(-520px, 520px) scale(.5);
+        opacity: 0;
+      }
+    }
+
+    .heart {
+      font-size: 22px;
+      animation: falling 2s linear forwards;
+    }
+
+    .rain {
+      font-size: 18px;
+      animation: falling 1.5s linear forwards;
+      color: #ffffff;
+      text-shadow: 0 0 8px #9be8ff;
+    }
+
+    @keyframes falling {
+      from {
+        transform: translateY(-20px);
+        opacity: 1;
+      }
+      to {
+        transform: translateY(100vh);
+        opacity: 0;
+      }
+    }
+
+    .bunny {
+      bottom: 20px;
+      left: -60px;
+      font-size: 34px;
+      animation: walkBunny 5s linear forwards;
+    }
+
+    @keyframes walkBunny {
+      from {
+        transform: translateX(0);
+      }
+      to {
+        transform: translateX(calc(100vw + 100px));
+      }
+    }
+
     @media (max-width: 600px) {
       body { padding: 12px; }
       h1 { font-size: 27px; }
       .page { padding: 12px; }
       button { width: 100%; }
+      .menu button { width: auto; }
+
       .topline {
         flex-direction: column;
         align-items: flex-start;
@@ -229,20 +342,20 @@
 <body>
   <div class="page">
     <header>
-      <h1>✦ 150 MEMO ✦</h1>
-      <div class="subtitle">150文字まで入力できるメモ帳です♡</div>
+      <h1>✦ 140 MEMO ✦</h1>
+      <div class="subtitle">♡140文字まで入力できるメモ帳♡</div>
     </header>
 
     <div class="notice">
-      あなたは 000150 人目のお客様です☆
+      ☆今日はどんな気分？☆
     </div>
 
     <div class="menu">
-      <span>TOP</span>
-      <span>MEMO</span>
-      <span>COPY</span>
-      <span>SAVE</span>
-      <span>BBS</span>
+      <button onclick="shootStar()">⭐</button>
+      <button onclick="fallHearts()">💖</button>
+      <button onclick="fallRain()">🌧</button>
+      <button onclick="nightMode()">🌙</button>
+      <button onclick="summonBunny()">🐰</button>
     </div>
 
     <div id="blocks"></div>
@@ -253,13 +366,13 @@
     </div>
 
     <footer>
-      ☆ 150文字メモ ☆<br>
-      Copyright (C) wordcountmemotill150
+      ☆ 140文字メモ ☆<br>
+      Copyright (C) wordcountmemotill140
     </footer>
   </div>
 
   <script>
-    const LIMIT = 150;
+    const LIMIT = 140;
     const blocks = document.getElementById("blocks");
     let blockCount = 0;
 
@@ -415,10 +528,70 @@
 
       const a = document.createElement("a");
       a.href = url;
-      a.download = "150memo.txt";
+      a.download = "140memo.txt";
       a.click();
 
       URL.revokeObjectURL(url);
+    }
+
+    function shootStar() {
+      const star = document.createElement("div");
+      star.className = "star";
+      star.textContent = "⭐";
+      star.style.top = Math.random() * 220 + "px";
+      star.style.left = window.innerWidth + "px";
+      document.body.appendChild(star);
+
+      setTimeout(() => {
+        star.remove();
+      }, 1200);
+    }
+
+    function fallHearts() {
+      for (let i = 0; i < 20; i++) {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.textContent = "💖";
+        heart.style.left = Math.random() * window.innerWidth + "px";
+        heart.style.top = "-30px";
+        heart.style.animationDelay = Math.random() * 0.8 + "s";
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+          heart.remove();
+        }, 2800);
+      }
+    }
+
+    function fallRain() {
+      for (let i = 0; i < 30; i++) {
+        const rain = document.createElement("div");
+        rain.className = "rain";
+        rain.textContent = "✦";
+        rain.style.left = Math.random() * window.innerWidth + "px";
+        rain.style.top = "-30px";
+        rain.style.animationDelay = Math.random() * 0.8 + "s";
+        document.body.appendChild(rain);
+
+        setTimeout(() => {
+          rain.remove();
+        }, 2400);
+      }
+    }
+
+    function nightMode() {
+      document.body.classList.toggle("night");
+    }
+
+    function summonBunny() {
+      const bunny = document.createElement("div");
+      bunny.className = "bunny";
+      bunny.textContent = "🐰";
+      document.body.appendChild(bunny);
+
+      setTimeout(() => {
+        bunny.remove();
+      }, 5000);
     }
 
     addBlock();
