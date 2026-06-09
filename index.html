@@ -343,7 +343,7 @@
   <div class="page">
     <header>
       <h1>✦ 140 MEMO ✦</h1>
-      <div class="subtitle">♡140文字まで入力できるメモ帳♡</div>
+      <div class="subtitle">140文字まで入力できるメモ帳♡</div>
     </header>
 
     <div class="notice">
@@ -361,13 +361,13 @@
     <div id="blocks"></div>
 
     <div class="main-actions">
-      <button class="save-all" onclick="saveAllBlocks()">✧ 全部一括保存 ✧</button>
+      <button class="save-all" onclick="saveAllBlocks()">✧ 全部一括コピー ✧</button>
       <button class="add" onclick="addBlock()">✧ 新しいブロックを追加する ✧</button>
     </div>
 
     <footer>
       ☆ 140文字メモ ☆<br>
-      Copyright (C) wordcountmemotill140
+      Copyright (C) 2026 syao!1
     </footer>
   </div>
 
@@ -509,7 +509,7 @@
       walk(element);
     }
 
-    function saveAllBlocks() {
+    async function saveAllBlocks() {
       const editors = document.querySelectorAll(".editor");
 
       const texts = [...editors]
@@ -517,21 +517,15 @@
         .filter(text => text.length > 0);
 
       if (texts.length === 0) {
-        alert("保存する文章がありません！");
+        alert("コピーする文章がありません！");
         return;
       }
 
       const joinedText = texts.join("\nーー\n");
 
-      const blob = new Blob([joinedText], { type: "text/plain;charset=utf-8" });
-      const url = URL.createObjectURL(blob);
+      await navigator.clipboard.writeText(joinedText);
 
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "140memo.txt";
-      a.click();
-
-      URL.revokeObjectURL(url);
+      alert("全部まとめてコピーしました♡");
     }
 
     function shootStar() {
