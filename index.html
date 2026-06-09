@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>150文字ブロックコピー</title>
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      background: #f7f7f7;
+      padding: 20px;
+      color: #222;
+    }
+
+    h1 {
+      font-size: 22px;
+      margin-bottom: 12px;
+    }
+
+    .block {
+      background: white;
+      padding: 14px;
+      border-radius: 12px;
+      margin-bottom: 14px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    .counter {
+      font-size: 14px;
+      margin-bottom: 6px;
+      color: #666;
+    }
+
+    .counter.over {
+      color: red;
+      font-weight: bold;
+    }
+
+    .editor {
+      width: 100%;
+      min-height: 110px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 10px;
+      font-size: 16px;
+      line-height: 1.6;
+      background: #fff;
+      white-space: pre-wrap;
+      word-break: break-word;
+      outline: none;
+      box-sizing: border-box;
+    }
+
+    .editor:focus {
+      border-color: #555;
+    }
+
+    .over-text {
+      color: red;
+      background: #ffecec;
+    }
+
+    button {
+      margin-top: 8px;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 8px;
+      background: #222;
+      color: white;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    button:active {
+      opacity: 0.7;
+    }
+
+    .add {
+      width: 100%;
+      margin-top: 10px;
+      background: #555;
+    }
+
+    .copied {
+      font-size: 13px;
+      color: green;
+      margin-left: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>150文字ブロックコピー</h1>
+
+  <div id="blocks"></div>
+
+  <button class="add" onclick="addBlock()">＋ ブロックを追加</button>
+
+  <script>
+    const LIMIT = 150;
+    const blocks = document.getElementById("blocks");
+
+    function escapeHtml(str) {
+      return str
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+    }
+
+    function addBlock(text = "") {
+      const block = document.createElement("div");
+      block.className = "block";
+
+      const counter = document.createElement("div");
+      counter.className = "counter";
+      counter.textContent = `0 / ${LIMIT}`;
+
+      const editor = document.createElement("div");
+      editor.className = "editor";
+      editor.contentEditable = "true";
+
+      const copyBtn = document.createElement("button");
+      copyBtn.textContent = "このブロックをコピー";
+
+      const copied = document.createElement("span");
+      copied.className = "copied";
+
+      block.appendChild(counter);
+      block.appendChild(editor);
+      block.appendChild(copyBtn);
+      block.appendChild(copied);
+      blocks.appendChild(block);
+
+      editor.innerText = text;
+      updateEditor(editor, counter);
+
+      editor.addEventListener("input", () => {
+        updateEditor(editor, counter);
+      });
+
+      copyBtn.addEventListener("click", async () => {
+        const plainText = editor.innerText;
+        await navigator.clipboard.writeText(plainText);
+        copied.textContent = "コピーしました";
+        setTimeout(() => copied.textContent = "", 1200);
+      });
+    }
+
+    function updateEditor(editor, counter) {
+      const text = editor.innerText.replace(/\n$/, "");
+      const count = [...text].length;
+
+      counter.textContent = `${count} / ${LIMIT}`;
+      counter.classList.toggle("over", count > LIMIT);
+
+      const selection = window.getSelection();
+      const range = selection.rangeCount > 0 ? selection.getRangeAt(0) : null;
+      const cursorOffset = getCursorOffset(editor);
+
+      const normal = [...text].slice(0, LIMIT).join("");
+      const over = [...text].slice(LIMIT).join("");
+
+      editor.innerHTML =
+        escapeHtml(normal) +
+        (over ? `<span class="over-text">${escapeHtml(over)}</span>` : "");
+
+      setCursorOffset(editor, cursorOffset);
+    }
+
+    function getCursorOffset(element) {
+      const selection = window.getSelection();
+      if (!selection.rangeCount) return 0;
+
+      const range = selection.getRangeAt(0);
+      const preRange = range.cloneRange();
+      preRange.selectNodeContents(element);
+      preRange.setEnd(range.endContainer, range.endOffset);
+
+      return [...preRange.toString()].length;
+    }
+
+    function setCursorOffset(element, offset) {
+      const selection = window.getSelection();
+      const range = document.createRange();
+      let current = 0;
+
+      function walk(node) {
+        if (node.nodeType === Node.TEXT_NODE) {
+          const length = [...node.textContent].length;
+          if (current + length >= offset) {
+            range.setStart(node, Math.min(offset - current, node.textContent.length));
+            range.collapse(true);
+            selection.removeAllRanges();
+            selection.addRange(range);
+            return true;
+          }
+          current += length;
+        } else {
+          for (let child of node.childNodes) {
+            if (walk(child)) return true;
+          }
+        }
+        return false;
+      }
+
+      walk(element);
+    }
+
+    addBlock();
+  </script>
+
+</body>
+</html>
