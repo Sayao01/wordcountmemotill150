@@ -6,86 +6,98 @@
   <title>150文字ブロックコピー</title>
   <style>
     body {
-      font-family: system-ui, sans-serif;
-      background: #f7f7f7;
-      padding: 20px;
-      color: #222;
-    }
+  font-family: "MS PGothic", "Hiragino Kaku Gothic ProN", sans-serif;
+  background: #00ffff;
+  color: #000080;
+  padding: 10px;
+  background-image:
+    linear-gradient(45deg, #ffccff 25%, transparent 25%),
+    linear-gradient(-45deg, #ffff99 25%, transparent 25%);
+  background-size: 32px 32px;
+}
 
-    h1 {
-      font-size: 22px;
-      margin-bottom: 12px;
-    }
+h1 {
+  font-size: 26px;
+  color: #ff00ff;
+  background: #ffff00;
+  border: 5px ridge #ff0000;
+  padding: 8px;
+  text-align: center;
+  text-shadow: 2px 2px #00ff00;
+}
 
-    .block {
-      background: white;
-      padding: 14px;
-      border-radius: 12px;
-      margin-bottom: 14px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    }
+.block {
+  background: #ffffff;
+  border: 4px outset #999;
+  padding: 10px;
+  margin-bottom: 16px;
+}
 
-    .counter {
-      font-size: 14px;
-      margin-bottom: 6px;
-      color: #666;
-    }
+.counter {
+  font-size: 14px;
+  color: #0000ff;
+  background: #ffffcc;
+  border: 2px inset #ccc;
+  padding: 4px;
+  margin-bottom: 6px;
+}
 
-    .counter.over {
-      color: red;
-      font-weight: bold;
-    }
+.counter.over {
+  color: #ff0000;
+  font-weight: bold;
+  background: #ffcccc;
+}
 
-    .editor {
-      width: 100%;
-      min-height: 110px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      padding: 10px;
-      font-size: 16px;
-      line-height: 1.6;
-      background: #fff;
-      white-space: pre-wrap;
-      word-break: break-word;
-      outline: none;
-      box-sizing: border-box;
-    }
+.editor {
+  width: 100%;
+  min-height: 120px;
+  border: 3px inset #999;
+  background: #fffaf0;
+  color: #000;
+  padding: 8px;
+  font-size: 16px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-word;
+  outline: none;
+  box-sizing: border-box;
+}
 
-    .editor:focus {
-      border-color: #555;
-    }
+.over-text {
+  color: #ff0000;
+  background: #ffff00;
+  font-weight: bold;
+  text-decoration: underline;
+}
 
-    .over-text {
-      color: red;
-      background: #ffecec;
-    }
+button {
+  font-family: "MS PGothic", sans-serif;
+  margin-top: 8px;
+  padding: 6px 12px;
+  border: 3px outset #ccc;
+  background: #c0c0c0;
+  color: #000;
+  font-size: 14px;
+  cursor: pointer;
+}
 
-    button {
-      margin-top: 8px;
-      padding: 8px 12px;
-      border: none;
-      border-radius: 8px;
-      background: #222;
-      color: white;
-      font-size: 14px;
-      cursor: pointer;
-    }
+button:active {
+  border: 3px inset #ccc;
+}
 
-    button:active {
-      opacity: 0.7;
-    }
+.add {
+  width: 100%;
+  background: #ffccff;
+  color: #000080;
+  font-weight: bold;
+}
 
-    .add {
-      width: 100%;
-      margin-top: 10px;
-      background: #555;
-    }
-
-    .copied {
-      font-size: 13px;
-      color: green;
-      margin-left: 8px;
-    }
+.copied {
+  font-size: 13px;
+  color: #008000;
+  margin-left: 8px;
+  background: #ffff00;
+}
   </style>
 </head>
 <body>
