@@ -3,114 +3,262 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>150文字ブロックコピー</title>
+  <title>150文字メモ</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
+
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-  font-family: "MS PGothic", "Hiragino Kaku Gothic ProN", sans-serif;
-  background: #00ffff;
-  color: #000080;
-  padding: 10px;
-  background-image:
-    linear-gradient(45deg, #ffccff 25%, transparent 25%),
-    linear-gradient(-45deg, #ffff99 25%, transparent 25%);
-  background-size: 32px 32px;
-}
+      margin: 0;
+      padding: 24px;
+      font-family: 'DotGothic16', sans-serif;
+      color: #30406f;
+      background:
+        radial-gradient(circle at 20% 20%, #ffffff 0 2px, transparent 3px),
+        linear-gradient(180deg, #dff8ff 0%, #e7e7ff 48%, #ffe3fb 100%);
+      background-size: 22px 22px, 100% 100%;
+      min-height: 100vh;
+    }
 
-h1 {
-  font-size: 26px;
-  color: #ff00ff;
-  background: #ffff00;
-  border: 5px ridge #ff0000;
-  padding: 8px;
-  text-align: center;
-  text-shadow: 2px 2px #00ff00;
-}
+    .page {
+      max-width: 880px;
+      margin: 0 auto;
+      border: 2px solid #ffffff;
+      border-radius: 24px;
+      padding: 18px;
+      background: rgba(255, 255, 255, 0.45);
+      box-shadow: 0 0 20px #ffffff, 0 0 35px #b9d7ff;
+    }
 
-.block {
-  background: #ffffff;
-  border: 4px outset #999;
-  padding: 10px;
-  margin-bottom: 16px;
-}
+    header {
+      text-align: center;
+      padding: 18px 10px;
+      border-radius: 20px;
+      background: linear-gradient(180deg, #ffffff, #d9efff 45%, #f6dcff);
+      border: 2px solid #ffffff;
+      box-shadow: inset 0 0 12px #ffffff, 0 4px 15px rgba(130, 150, 255, 0.25);
+      margin-bottom: 16px;
+    }
 
-.counter {
-  font-size: 14px;
-  color: #0000ff;
-  background: #ffffcc;
-  border: 2px inset #ccc;
-  padding: 4px;
-  margin-bottom: 6px;
-}
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      color: #7777ff;
+      text-shadow: 2px 2px #ffffff, 0 0 8px #ffbdf4;
+      letter-spacing: 2px;
+    }
 
-.counter.over {
-  color: #ff0000;
-  font-weight: bold;
-  background: #ffcccc;
-}
+    .subtitle {
+      margin-top: 8px;
+      color: #6b6bb5;
+      font-size: 15px;
+    }
 
-.editor {
-  width: 100%;
-  min-height: 120px;
-  border: 3px inset #999;
-  background: #fffaf0;
-  color: #000;
-  padding: 8px;
-  font-size: 16px;
-  line-height: 1.5;
-  white-space: pre-wrap;
-  word-break: break-word;
-  outline: none;
-  box-sizing: border-box;
-}
+    .notice {
+      text-align: center;
+      margin: 12px 0 18px;
+      padding: 9px;
+      border-radius: 999px;
+      background: #10132d;
+      color: #8cffc1;
+      box-shadow: inset 0 0 8px #5fffff, 0 0 10px #ffffff;
+      font-size: 15px;
+    }
 
-.over-text {
-  color: #ff0000;
-  background: #ffff00;
-  font-weight: bold;
-  text-decoration: underline;
-}
+    .menu {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
 
-button {
-  font-family: "MS PGothic", sans-serif;
-  margin-top: 8px;
-  padding: 6px 12px;
-  border: 3px outset #ccc;
-  background: #c0c0c0;
-  color: #000;
-  font-size: 14px;
-  cursor: pointer;
-}
+    .menu span {
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, #ffffff, #cce8ff);
+      border: 1px solid #ffffff;
+      box-shadow: 0 3px 8px rgba(90, 100, 180, 0.22);
+      color: #5d65c9;
+    }
 
-button:active {
-  border: 3px inset #ccc;
-}
+    .block {
+      margin-bottom: 16px;
+      padding: 14px;
+      border-radius: 18px;
+      border: 2px solid #ffffff;
+      background: linear-gradient(180deg, rgba(255,255,255,.9), rgba(231,244,255,.78));
+      box-shadow: 0 0 12px #ffffff, 0 5px 14px rgba(120, 140, 220, .22);
+    }
 
-.add {
-  width: 100%;
-  background: #ffccff;
-  color: #000080;
-  font-weight: bold;
-}
+    .block:nth-child(2n) {
+      background: linear-gradient(180deg, rgba(255,255,255,.9), rgba(255,232,250,.78));
+    }
 
-.copied {
-  font-size: 13px;
-  color: #008000;
-  margin-left: 8px;
-  background: #ffff00;
-}
+    .block:nth-child(3n) {
+      background: linear-gradient(180deg, rgba(255,255,255,.9), rgba(226,255,236,.78));
+    }
+
+    .topline {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      color: #6168d9;
+      font-weight: bold;
+    }
+
+    .counter {
+      color: #6d5fff;
+    }
+
+    .counter.over {
+      color: #ff2f7d;
+      text-shadow: 0 0 4px #ffffff;
+    }
+
+    .editor {
+      width: 100%;
+      min-height: 120px;
+      padding: 12px;
+      border-radius: 12px;
+      border: 2px inset #c7d5ff;
+      background: rgba(255,255,255,.92);
+      color: #28345f;
+      outline: none;
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-size: 16px;
+      line-height: 1.7;
+      box-shadow: inset 0 0 8px rgba(160, 180, 255, .35);
+    }
+
+    .editor:focus {
+      border-color: #ff9ee7;
+      box-shadow: inset 0 0 8px #ffd8f5, 0 0 8px #ffffff;
+    }
+
+    .over-text {
+      color: #ff005d;
+      background: #fff4a8;
+      text-decoration: underline;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+      align-items: center;
+    }
+
+    button {
+      font-family: 'DotGothic16', sans-serif;
+      border: 1px solid #ffffff;
+      border-radius: 999px;
+      padding: 8px 16px;
+      color: #4a54b5;
+      background: linear-gradient(180deg, #ffffff, #c7e4ff);
+      box-shadow: inset 0 2px 2px #ffffff, 0 4px 10px rgba(100, 120, 200, .25);
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    button:active {
+      transform: translateY(1px);
+      box-shadow: inset 0 2px 8px rgba(100, 120, 200, .25);
+    }
+
+    .clear {
+      background: linear-gradient(180deg, #ffffff, #ffd7f2);
+      color: #ba4faa;
+    }
+
+    .add {
+      display: block;
+      margin: 20px auto 8px;
+      min-width: 260px;
+      font-weight: bold;
+      background: linear-gradient(180deg, #ffffff, #dcd4ff);
+      color: #6860d9;
+    }
+
+    .copied {
+      color: #00a66a;
+      font-size: 14px;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 18px;
+      padding-top: 12px;
+      border-top: 2px dotted #9fb7ff;
+      color: #6a70b8;
+      font-size: 13px;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 12px;
+      }
+
+      h1 {
+        font-size: 27px;
+      }
+
+      .page {
+        padding: 12px;
+      }
+
+      .buttons {
+        flex-wrap: wrap;
+      }
+
+      button {
+        width: 100%;
+      }
+    }
   </style>
 </head>
+
 <body>
+  <div class="page">
+    <header>
+      <h1>✦ 150 MEMO ✦</h1>
+      <div class="subtitle">150文字まで入力できるメモ帳です♡</div>
+    </header>
 
-  <h1>150文字ブロックコピー</h1>
+    <div class="notice">
+      あなたは 000150 人目のお客様です☆
+    </div>
 
-  <div id="blocks"></div>
+    <div class="menu">
+      <span>TOP</span>
+      <span>MEMO</span>
+      <span>COPY</span>
+      <span>LINK</span>
+      <span>BBS</span>
+    </div>
 
-  <button class="add" onclick="addBlock()">＋ ブロックを追加</button>
+    <div id="blocks"></div>
+
+    <button class="add" onclick="addBlock()">✧ 新しいブロックを追加する ✧</button>
+
+    <footer>
+      ☆ 150文字メモ ☆<br>
+      Copyright (C) wordcountmemotill150
+    </footer>
+  </div>
 
   <script>
     const LIMIT = 150;
     const blocks = document.getElementById("blocks");
+    let blockCount = 0;
 
     function escapeHtml(str) {
       return str
@@ -120,30 +268,51 @@ button:active {
     }
 
     function addBlock(text = "") {
+      blockCount++;
+
       const block = document.createElement("div");
       block.className = "block";
 
+      const topline = document.createElement("div");
+      topline.className = "topline";
+
+      const title = document.createElement("div");
+      title.textContent = `✧ ブロック${blockCount}`;
+
       const counter = document.createElement("div");
       counter.className = "counter";
-      counter.textContent = `0 / ${LIMIT}`;
+      counter.textContent = `0 / ${LIMIT}文字`;
+
+      topline.appendChild(title);
+      topline.appendChild(counter);
 
       const editor = document.createElement("div");
       editor.className = "editor";
       editor.contentEditable = "true";
+      editor.innerText = text;
+
+      const buttons = document.createElement("div");
+      buttons.className = "buttons";
 
       const copyBtn = document.createElement("button");
       copyBtn.textContent = "このブロックをコピー";
 
+      const clearBtn = document.createElement("button");
+      clearBtn.className = "clear";
+      clearBtn.textContent = "クリア";
+
       const copied = document.createElement("span");
       copied.className = "copied";
 
-      block.appendChild(counter);
+      buttons.appendChild(copyBtn);
+      buttons.appendChild(clearBtn);
+      buttons.appendChild(copied);
+
+      block.appendChild(topline);
       block.appendChild(editor);
-      block.appendChild(copyBtn);
-      block.appendChild(copied);
+      block.appendChild(buttons);
       blocks.appendChild(block);
 
-      editor.innerText = text;
       updateEditor(editor, counter);
 
       editor.addEventListener("input", () => {
@@ -151,10 +320,15 @@ button:active {
       });
 
       copyBtn.addEventListener("click", async () => {
-        const plainText = editor.innerText;
+        const plainText = editor.innerText.replace(/\n$/, "");
         await navigator.clipboard.writeText(plainText);
-        copied.textContent = "コピーしました";
+        copied.textContent = "コピーしました♡";
         setTimeout(() => copied.textContent = "", 1200);
+      });
+
+      clearBtn.addEventListener("click", () => {
+        editor.innerText = "";
+        updateEditor(editor, counter);
       });
     }
 
@@ -162,11 +336,9 @@ button:active {
       const text = editor.innerText.replace(/\n$/, "");
       const count = [...text].length;
 
-      counter.textContent = `${count} / ${LIMIT}`;
+      counter.textContent = `${count} / ${LIMIT}文字`;
       counter.classList.toggle("over", count > LIMIT);
 
-      const selection = window.getSelection();
-      const range = selection.rangeCount > 0 ? selection.getRangeAt(0) : null;
       const cursorOffset = getCursorOffset(editor);
 
       const normal = [...text].slice(0, LIMIT).join("");
@@ -199,6 +371,7 @@ button:active {
       function walk(node) {
         if (node.nodeType === Node.TEXT_NODE) {
           const length = [...node.textContent].length;
+
           if (current + length >= offset) {
             range.setStart(node, Math.min(offset - current, node.textContent.length));
             range.collapse(true);
@@ -206,12 +379,14 @@ button:active {
             selection.addRange(range);
             return true;
           }
+
           current += length;
         } else {
           for (let child of node.childNodes) {
             if (walk(child)) return true;
           }
         }
+
         return false;
       }
 
@@ -220,6 +395,5 @@ button:active {
 
     addBlock();
   </script>
-
 </body>
 </html>
