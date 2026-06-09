@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>140文字メモ</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,6 +11,10 @@
 
   <style>
     * { box-sizing: border-box; }
+
+    html {
+      touch-action: manipulation;
+    }
 
     body {
       margin: 0;
@@ -93,7 +97,7 @@
       background: #10132d;
       color: #8cffc1;
       box-shadow: inset 0 0 8px #5fffff, 0 0 10px #fff;
-      font-size: 15px;
+      font-size: 16px;
     }
 
     .menu {
@@ -102,6 +106,12 @@
       justify-content: center;
       flex-wrap: wrap;
       margin-bottom: 18px;
+    }
+
+    button,
+    .menu button,
+    .editor {
+      touch-action: manipulation;
     }
 
     .menu button {
@@ -209,7 +219,7 @@
       background: linear-gradient(180deg, #fff, #c7e4ff);
       box-shadow: inset 0 2px 2px #fff, 0 4px 10px rgba(100,120,200,.25);
       cursor: pointer;
-      font-size: 15px;
+      font-size: 16px;
     }
 
     button:active {
@@ -315,12 +325,8 @@
     }
 
     @keyframes walkBunny {
-      from {
-        transform: translateX(0);
-      }
-      to {
-        transform: translateX(calc(100vw + 100px));
-      }
+      from { transform: translateX(0); }
+      to { transform: translateX(calc(100vw + 100px)); }
     }
 
     @media (max-width: 600px) {
@@ -343,7 +349,7 @@
   <div class="page">
     <header>
       <h1>✦ 140 MEMO ✦</h1>
-      <div class="subtitle">140文字まで入力できるメモ帳♡</div>
+      <div class="subtitle">140文字まで入力できるメモ帳です♡</div>
     </header>
 
     <div class="notice">
@@ -367,7 +373,7 @@
 
     <footer>
       ☆ 140文字メモ ☆<br>
-      Copyright (C) 2026 syao!1
+      Copyright (C) Syao!1
     </footer>
   </div>
 
@@ -375,6 +381,15 @@
     const LIMIT = 140;
     const blocks = document.getElementById("blocks");
     let blockCount = 0;
+
+    let lastTouchEnd = 0;
+    document.addEventListener("touchend", function(event) {
+      const now = Date.now();
+      if (now - lastTouchEnd <= 300) {
+        event.preventDefault();
+      }
+      lastTouchEnd = now;
+    }, { passive: false });
 
     function escapeHtml(str) {
       return str
