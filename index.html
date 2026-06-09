@@ -10,9 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -20,7 +18,7 @@
       font-family: 'DotGothic16', sans-serif;
       color: #30406f;
       background:
-        radial-gradient(circle at 20% 20%, #ffffff 0 2px, transparent 3px),
+        radial-gradient(circle at 20% 20%, #fff 0 2px, transparent 3px),
         linear-gradient(180deg, #dff8ff 0%, #e7e7ff 48%, #ffe3fb 100%);
       background-size: 22px 22px, 100% 100%;
       min-height: 100vh;
@@ -29,20 +27,20 @@
     .page {
       max-width: 880px;
       margin: 0 auto;
-      border: 2px solid #ffffff;
+      border: 2px solid #fff;
       border-radius: 24px;
       padding: 18px;
-      background: rgba(255, 255, 255, 0.45);
-      box-shadow: 0 0 20px #ffffff, 0 0 35px #b9d7ff;
+      background: rgba(255,255,255,.45);
+      box-shadow: 0 0 20px #fff, 0 0 35px #b9d7ff;
     }
 
     header {
       text-align: center;
       padding: 18px 10px;
       border-radius: 20px;
-      background: linear-gradient(180deg, #ffffff, #d9efff 45%, #f6dcff);
-      border: 2px solid #ffffff;
-      box-shadow: inset 0 0 12px #ffffff, 0 4px 15px rgba(130, 150, 255, 0.25);
+      background: linear-gradient(180deg, #fff, #d9efff 45%, #f6dcff);
+      border: 2px solid #fff;
+      box-shadow: inset 0 0 12px #fff, 0 4px 15px rgba(130,150,255,.25);
       margin-bottom: 16px;
     }
 
@@ -50,7 +48,7 @@
       margin: 0;
       font-size: 34px;
       color: #7777ff;
-      text-shadow: 2px 2px #ffffff, 0 0 8px #ffbdf4;
+      text-shadow: 2px 2px #fff, 0 0 8px #ffbdf4;
       letter-spacing: 2px;
     }
 
@@ -67,7 +65,7 @@
       border-radius: 999px;
       background: #10132d;
       color: #8cffc1;
-      box-shadow: inset 0 0 8px #5fffff, 0 0 10px #ffffff;
+      box-shadow: inset 0 0 8px #5fffff, 0 0 10px #fff;
       font-size: 15px;
     }
 
@@ -82,9 +80,9 @@
     .menu span {
       padding: 6px 12px;
       border-radius: 999px;
-      background: linear-gradient(180deg, #ffffff, #cce8ff);
-      border: 1px solid #ffffff;
-      box-shadow: 0 3px 8px rgba(90, 100, 180, 0.22);
+      background: linear-gradient(180deg, #fff, #cce8ff);
+      border: 1px solid #fff;
+      box-shadow: 0 3px 8px rgba(90,100,180,.22);
       color: #5d65c9;
     }
 
@@ -92,9 +90,9 @@
       margin-bottom: 16px;
       padding: 14px;
       border-radius: 18px;
-      border: 2px solid #ffffff;
+      border: 2px solid #fff;
       background: linear-gradient(180deg, rgba(255,255,255,.9), rgba(231,244,255,.78));
-      box-shadow: 0 0 12px #ffffff, 0 5px 14px rgba(120, 140, 220, .22);
+      box-shadow: 0 0 12px #fff, 0 5px 14px rgba(120,140,220,.22);
     }
 
     .block:nth-child(2n) {
@@ -114,13 +112,11 @@
       font-weight: bold;
     }
 
-    .counter {
-      color: #6d5fff;
-    }
+    .counter { color: #6d5fff; }
 
     .counter.over {
       color: #ff2f7d;
-      text-shadow: 0 0 4px #ffffff;
+      text-shadow: 0 0 4px #fff;
     }
 
     .editor {
@@ -136,12 +132,12 @@
       word-break: break-word;
       font-size: 16px;
       line-height: 1.7;
-      box-shadow: inset 0 0 8px rgba(160, 180, 255, .35);
+      box-shadow: inset 0 0 8px rgba(160,180,255,.35);
     }
 
     .editor:focus {
       border-color: #ff9ee7;
-      box-shadow: inset 0 0 8px #ffd8f5, 0 0 8px #ffffff;
+      box-shadow: inset 0 0 8px #ffd8f5, 0 0 8px #fff;
     }
 
     .over-text {
@@ -155,37 +151,51 @@
       gap: 8px;
       margin-top: 10px;
       align-items: center;
+      flex-wrap: wrap;
     }
 
     button {
       font-family: 'DotGothic16', sans-serif;
-      border: 1px solid #ffffff;
+      border: 1px solid #fff;
       border-radius: 999px;
       padding: 8px 16px;
       color: #4a54b5;
-      background: linear-gradient(180deg, #ffffff, #c7e4ff);
-      box-shadow: inset 0 2px 2px #ffffff, 0 4px 10px rgba(100, 120, 200, .25);
+      background: linear-gradient(180deg, #fff, #c7e4ff);
+      box-shadow: inset 0 2px 2px #fff, 0 4px 10px rgba(100,120,200,.25);
       cursor: pointer;
       font-size: 15px;
     }
 
     button:active {
       transform: translateY(1px);
-      box-shadow: inset 0 2px 8px rgba(100, 120, 200, .25);
     }
 
     .clear {
-      background: linear-gradient(180deg, #ffffff, #ffd7f2);
+      background: linear-gradient(180deg, #fff, #ffd7f2);
       color: #ba4faa;
     }
 
-    .add {
-      display: block;
-      margin: 20px auto 8px;
-      min-width: 260px;
+    .main-actions {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 20px 0 8px;
+    }
+
+    .add, .save-all {
+      min-width: 240px;
       font-weight: bold;
-      background: linear-gradient(180deg, #ffffff, #dcd4ff);
+    }
+
+    .add {
+      background: linear-gradient(180deg, #fff, #dcd4ff);
       color: #6860d9;
+    }
+
+    .save-all {
+      background: linear-gradient(180deg, #fff, #c9fff0);
+      color: #009d83;
     }
 
     .copied {
@@ -203,24 +213,14 @@
     }
 
     @media (max-width: 600px) {
-      body {
-        padding: 12px;
-      }
-
-      h1 {
-        font-size: 27px;
-      }
-
-      .page {
-        padding: 12px;
-      }
-
-      .buttons {
-        flex-wrap: wrap;
-      }
-
-      button {
-        width: 100%;
+      body { padding: 12px; }
+      h1 { font-size: 27px; }
+      .page { padding: 12px; }
+      button { width: 100%; }
+      .topline {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
       }
     }
   </style>
@@ -230,24 +230,27 @@
   <div class="page">
     <header>
       <h1>✦ 150 MEMO ✦</h1>
-      <div class="subtitle">♡150文字まで入力できるメモ帳♡</div>
+      <div class="subtitle">150文字まで入力できるメモ帳です♡</div>
     </header>
 
     <div class="notice">
-      ☆今日はなんの気分？☆
+      あなたは 000150 人目のお客様です☆
     </div>
 
     <div class="menu">
       <span>TOP</span>
       <span>MEMO</span>
       <span>COPY</span>
-      <span>LINK</span>
+      <span>SAVE</span>
       <span>BBS</span>
     </div>
 
     <div id="blocks"></div>
 
-    <button class="add" onclick="addBlock()">✧ 新しいブロックを追加する ✧</button>
+    <div class="main-actions">
+      <button class="save-all" onclick="saveAllBlocks()">✧ 全部一括保存 ✧</button>
+      <button class="add" onclick="addBlock()">✧ 新しいブロックを追加する ✧</button>
+    </div>
 
     <footer>
       ☆ 150文字メモ ☆<br>
@@ -391,6 +394,31 @@
       }
 
       walk(element);
+    }
+
+    function saveAllBlocks() {
+      const editors = document.querySelectorAll(".editor");
+
+      const texts = [...editors]
+        .map(editor => editor.innerText.replace(/\n$/, "").trim())
+        .filter(text => text.length > 0);
+
+      if (texts.length === 0) {
+        alert("保存する文章がありません！");
+        return;
+      }
+
+      const joinedText = texts.join("\nーー\n");
+
+      const blob = new Blob([joinedText], { type: "text/plain;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "150memo.txt";
+      a.click();
+
+      URL.revokeObjectURL(url);
     }
 
     addBlock();
